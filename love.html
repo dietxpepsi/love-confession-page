@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For You 🩵</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=VT323&family=Quicksand&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    body {
+      background-color: #eaf4ff;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      transition: background 1s ease;
+    }
+
+    .slide {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    h1, p {
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-size: 16px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #cce7ff;
+    }
+
+    #noBtn {
+      position: absolute;
+      transition: 0.2s ease;
+    }
+
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #5aa9e6;
+      animation: fall 3s linear infinite;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(100vh) rotateZ(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slide active" id="slide1">
+  <h1>5 things I need today:</h1>
+  <p>1. voice note (from u)<br>
+     2. photo (from u)<br>
+     3. photo (from u)<br>
+     4. your love<br>
+     5. you &lt;3
+  </p>
+  <div style="margin-top: 30px;">
+    <button onclick="nextSlide()">Yes</button>
+    <button id="noBtn" onmouseover="moveButton()">No</button>
+  </div>
+</div>
+
+<div class="slide" id="slide2">
+  <h1>happy happy happy</h1>
+  <pre>
+⠀⠀⠀⢠⡾⠲⠶⣤⣀⣠⣤⣤⣤⡿⠛⠿⡴⠾⠛⢻⡆⠀⠀⠀
+⠀⠀⠀⣼⠁⠀⠀⠀⠉⠁⠀⢀⣿⠐⡿⣿⠿⣶⣤⣤⣷⡀⠀⠀
+⠀⠀⠀⢹⡶⠀⠀⠀⠀⠀⠀⠈⢯⣡⣿⣿⣀⣸⣿⣦⢓⡟⠀⠀
+⠀⠀⢀⡿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠹⣍⣭⣾⠁⠀⠀
+⠀⣀⣸⣇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣸⣷⣤⡀
+⠈⠉⠹⣏⡁⠀⢸⣿⠀⠀⠀⢀⡀⠀⠀⠀⣿⠆⠀⢀⣸⣇⣀⠀
+⠀⠐⠋⢻⣅⣄⢀⣀⣀⡀⠀⠯⠽⠂⢀⣀⣀⡀⠀⣤⣿⠀⠉⠀
+⠀⠀⠴⠛⠙⣳⠋⠉⠉⠙⣆⠀⠀⢰⡟⠉⠈⠙⢷⠟⠉⠙⠂⠀
+⠀⠀⠀⠀⠀⢻⣄⣠⣤⣴⠟⠛⠛⠛⢧⣤⣤⣀⡾
+  </pre>
+  <p style="font-style: italic;">I love you to the moon and to Saturn 🌙💫</p>
+  <button onclick="nextSlide()">Next</button>
+</div>
+
+<div class="slide" id="slide3">
+  <h1 style="font-family: 'VT323', monospace; font-size: 32px;">
+    ˖ ᡣ𐭩 ⊹ ࣪  ౨ৎ˚₊  I love you 𐙚🧸ྀི
+  </h1>
+  <p>Suddenly all Taylor Swift's love songs belong to you... just like you belong to me. 💘</p>
+</div>
+
+<div class="confetti" id="confetti"></div>
+
+<script>
+  let slideIndex = 1;
+  const slides = document.querySelectorAll('.slide');
+
+  function nextSlide() {
+    if (slideIndex === 1) showConfetti();
+    slides[slideIndex - 1].classList.remove('active');
+    slideIndex++;
+    slides[slideIndex - 1].classList.add('active');
+  }
+
+  const noBtn = document.getElementById('noBtn');
+  function moveButton() {
+    let x = Math.floor(Math.random() * (window.innerWidth - 100));
+    let y = Math.floor(Math.random() * (window.innerHeight - 50));
+    noBtn.style.left = `${x}px`;
+    noBtn.style.top = `${y}px`;
+
+    setTimeout(() => {
+      noBtn.innerText = 'Yes';
+      noBtn.setAttribute('onclick', 'nextSlide()');
+    }, 2500);
+  }
+
+  function showConfetti() {
+    const container = document.getElementById('confetti');
+    for (let i = 0; i < 100; i++) {
+      let confetti = document.createElement('div');
+      confetti.classList.add('confetti-piece');
+      confetti.style.left = Math.random() * 100 + 'vw';
+      confetti.style.animationDelay = Math.random() * 3 + 's';
+      container.appendChild(confetti);
+      setTimeout(() => container.removeChild(confetti), 3000);
+    }
+  }
+</script>
+</body>
+</html>
